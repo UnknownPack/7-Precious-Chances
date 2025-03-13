@@ -78,6 +78,14 @@ public class GameManager : MonoBehaviour
     private void RespawnPlayer() {
         if (player != null) {
             player.transform.position = playerStartPosition;
+            ClearFireballs();
+        }
+    }
+
+    private void ClearFireballs() {
+        GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
+        foreach (GameObject fireball in fireballs) {
+            Destroy(fireball);
         }
     }
 
