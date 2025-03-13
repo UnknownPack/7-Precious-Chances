@@ -290,7 +290,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -314,8 +314,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.55540913, y: 0.99904, z: -18.929476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -435,8 +435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireballPrefab: {fileID: 1819649338264961485, guid: 5bd3b1b2a6100c04fa8fed5f14bbb8a4, type: 3}
-  fireballSpeed: 8
-  spawnInterval: 3
+  fireballSpeed: 12
+  spawnInterval: 4
 --- !u!4 &1123366611
 Transform:
   m_ObjectHideFlags: 0
@@ -446,7 +446,7 @@ Transform:
   m_GameObject: {fileID: 1123366609}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.33, y: -1.33, z: -0.036837786}
+  m_LocalPosition: {x: -16.59, y: -1.33, z: -0.036837786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -535,7 +535,7 @@ Transform:
   m_GameObject: {fileID: 1670975043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.55, y: -2.14, z: 0}
+  m_LocalPosition: {x: 16.13, y: -2.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -688,8 +688,8 @@ Transform:
   m_GameObject: {fileID: 1911670740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1798, y: -3.8, z: 0}
-  m_LocalScale: {x: 35.595905, y: 1, z: 1}
+  m_LocalPosition: {x: 0.55, y: -4.29, z: 0}
+  m_LocalScale: {x: 35.595905, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -767,6 +767,56 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1946642719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1946642721}
+  - component: {fileID: 1946642720}
+  m_Layer: 0
+  m_Name: TrapSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1946642720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946642719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f11c43735e7e04597238faba204847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapPrefab: {fileID: 5344751974200052619, guid: 0e445c3a3beb03c4e882749cd6cb9cca, type: 3}
+  trapsPerLevel: 1
+  maxTraps: 7
+  spawnAreaMin: {x: -13, y: -4}
+  spawnAreaMax: {x: 12, y: 0}
+  minDistanceBetweenTraps: 2.5
+--- !u!4 &1946642721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946642719}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44061777, y: 0.23758277, z: -0.036837786}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1954707498
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,8 +847,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireballPrefab: {fileID: 1819649338264961485, guid: 5bd3b1b2a6100c04fa8fed5f14bbb8a4, type: 3}
-  fireballSpeed: 4
-  spawnInterval: 5
+  fireballSpeed: 6
+  spawnInterval: 6
 --- !u!4 &1954707500
 Transform:
   m_ObjectHideFlags: 0
@@ -808,7 +858,7 @@ Transform:
   m_GameObject: {fileID: 1954707498}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.33, y: -2.67, z: -0.036837786}
+  m_LocalPosition: {x: -16.75, y: -2.67, z: -0.036837786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -825,3 +875,4 @@ SceneRoots:
   - {fileID: 1123366611}
   - {fileID: 1954707500}
   - {fileID: 376363017}
+  - {fileID: 1946642721}
