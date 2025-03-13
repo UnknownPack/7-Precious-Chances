@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,8 +45,14 @@ public class GameManager : MonoBehaviour
         _lives = uiDocument.rootVisualElement.Q<Label>("_lives");
 
         player = GameObject.FindWithTag("Player");
+        
         if (player != null) {
+            DontDestroyOnLoad(player);
             playerStartPosition = player.transform.position;
+
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TreasureRoom") {
+                player.transform.position = new Vector2(13.5f, -7.5f);
+            }
         }
         else {
             Debug.LogError("Player not found in the scene");

@@ -9,6 +9,7 @@ TagManager:
   - Bomb
   - Treasure
   - SpikeTrap
+  - Dragon
   layers:
   - Default
   - TransparentFX
