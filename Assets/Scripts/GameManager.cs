@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int lives = 7;
     private int score;
+    private int currentLevel = 1;
     private static GameManager instance;
 
     private UIDocument uiDocument;
@@ -61,6 +62,14 @@ public class GameManager : MonoBehaviour
     public void AddScore(int value) {
         score += value;
         UpdateUI();
+    }
+
+    public void IncreaseLevel() {
+        currentLevel++;
+    }
+
+    public int GetCurrentLevel() {
+        return currentLevel;
     }
 
     public void LoseLife() {

@@ -15,7 +15,7 @@ public class Fireball : MonoBehaviour
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
 
-        if (transform.position.x > 10)
+        if (transform.position.x > 15)
         {
             Destroy(gameObject);
         }
