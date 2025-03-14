@@ -10,6 +10,7 @@ TagManager:
   - Treasure
   - SpikeTrap
   - Dragon
+  - Cover
   layers:
   - Default
   - TransparentFX

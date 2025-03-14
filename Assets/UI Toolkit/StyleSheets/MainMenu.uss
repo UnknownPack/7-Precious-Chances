@@ -1,0 +1,28 @@
+.button {
+    align-self: center;
+    width: 25%;
+    height: 7.5%;
+    font-size: 75px;
+    -unity-font-style: bold;
+    color: rgb(255, 169, 75);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(228, 255, 0, 0);
+    border-right-color: rgba(228, 255, 0, 0);
+    border-top-color: rgba(228, 255, 0, 0);
+    border-bottom-color: rgba(228, 255, 0, 0);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    margin-bottom: 0;
+    margin-top: 75px;
+}
+
+.button:hover {
+    background-color: rgb(255, 169, 75);
+    color: rgb(255, 0, 67);
+}
