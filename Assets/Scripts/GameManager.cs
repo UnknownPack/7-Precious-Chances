@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private Vector2 playerStartPosition;
     private GameObject player;
 
+    private int[] baseTreasureValues = { 10, 60, 200, 400 };
+
     public static GameManager Instance {
         get {
             if (instance == null) {
@@ -77,6 +79,11 @@ public class GameManager : MonoBehaviour
 
     public int GetCurrentLevel() {
         return currentLevel;
+    }
+
+    public int GetTreasureValue(int baseValue) {
+        float multiplier = Mathf.Pow(1.2f, currentLevel - 1);
+        return Mathf.RoundToInt(baseValue * multiplier);
     }
 
     public void LoseLife() {
