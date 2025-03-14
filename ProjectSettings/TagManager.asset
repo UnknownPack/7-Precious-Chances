@@ -8,6 +8,8 @@ TagManager:
   - Fireball
   - Bomb
   - Treasure
+  - SpikeTrap
+  - Dragon
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
     private float currentMoveSpeed = 0f;
     private Vector2 currrentMovementVector;
     
+
+    private static PlayerController instance;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -99,4 +103,17 @@ public enum ViewState
 {
     SideScrolling,
     TopDown
+
+    private void Awake() 
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }
