@@ -40,36 +40,31 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         uiDocument = GetComponent<UIDocument>();
-        score = 0;
-
+        score = 0;  
+        lives = maxNumOfLives; 
+        currentLevel = 1;
         _score = uiDocument.rootVisualElement.Q<Label>("_score");
         _lives = uiDocument.rootVisualElement.Q<Label>("_lives");
-
-        player = GameObject.FindWithTag("Player");
-        
-        if (player != null) {
-            DontDestroyOnLoad(player);
-            playerStartPosition = player.transform.position;
-
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TreasureRoom") {
-                player.transform.position = new Vector2(13.5f, -7.5f);
-            }
-        }
-        else {
-            Debug.LogError("Player not found in the scene");
-        }
-
         UpdateUI();
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     void UpdateUI() {
         if (_score != null) _score.text = "Score: " + score;
-        if (_lives != null) _lives.text = "Lives: " + lives;
+        string livesDisplay = "Lives: ";
+        if (_lives != null)
+        {
+             
+            for (int i = 0; i < lives; i++)
+            {
+                livesDisplay += '*';
+            }
+            _lives.text = livesDisplay;
+            Debug.Log("Lives: " + _lives.text);
+        }
     }
 
     public void AddScore(int value) {
@@ -78,7 +73,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void IncreaseLevel() {
-        audioSource.pitch = 1 + 0.1f * (currentLevel);
+        audioSource.pitch = 1 + (0.1f * currentLevel);
+        Time.timeScale = 1 + (0.1f * currentLevel);
+        //TODO: Add logic to change colour of the level(s)
         currentLevel++;
     }
 

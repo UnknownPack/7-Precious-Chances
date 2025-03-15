@@ -21,20 +21,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 currrentMovementVector;
     
 
-    private static PlayerController instance;
-
-    private void Awake() 
-    {
-        if (instance == null)
-         {
-         instance = this;
-         DontDestroyOnLoad(gameObject);
-         }
-          else
-            {
-                Destroy(gameObject);
-            }
-        }
+    private static PlayerController instance; 
         
     void Start()
     {

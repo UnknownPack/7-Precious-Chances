@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 313753043}
   - component: {fileID: 313753042}
   m_Layer: 0
-  m_Name: gate_0
+  m_Name: Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 27d2ab247f8bd9f4ba59cf181aea188d, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: a4621660c86b8804abce1618bff882d2, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
@@ -646,12 +646,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619394800}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.589484, y: -0.630605, z: 0.03703591}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1037789092}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &943072833
 GameObject:
@@ -663,7 +663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 943072835}
   - component: {fileID: 943072834}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tower (2)
   m_TagString: Cover
   m_Icon: {fileID: 0}
@@ -814,7 +814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1037789092}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BackgroundSprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,6 +837,7 @@ Transform:
   - {fileID: 1214684590}
   - {fileID: 1811343984}
   - {fileID: 943072835}
+  - {fileID: 619394802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1123366609
@@ -897,7 +898,7 @@ GameObject:
   - component: {fileID: 1214684590}
   - component: {fileID: 1214684589}
   - component: {fileID: 1214684591}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tower
   m_TagString: Cover
   m_Icon: {fileID: 0}
@@ -1030,7 +1031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811343984}
   - component: {fileID: 1811343983}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tower (1)
   m_TagString: Cover
   m_Icon: {fileID: 0}
@@ -1371,12 +1372,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 619394802}
   - {fileID: 1911670742}
   - {fileID: 1123366611}
   - {fileID: 1954707500}
-  - {fileID: 376363017}
   - {fileID: 1946642721}
   - {fileID: 1021511059}
   - {fileID: 313753045}
   - {fileID: 1037789092}
+  - {fileID: 376363017}
