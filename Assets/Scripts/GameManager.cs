@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private Label _score, _lives;
     private Vector2 playerStartPosition;
     private GameObject player;
+    private AudioSource audioSource;
 
     private int[] baseTreasureValues = { 10, 60, 200, 400 };
 
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         }
 
         UpdateUI();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     void UpdateUI() {
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void IncreaseLevel() {
+        audioSource.pitch = 1 + 0.1f * (currentLevel);
         currentLevel++;
     }
 
@@ -121,6 +124,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E)) {
+            IncreaseLevel();
+        }
     }
 }
