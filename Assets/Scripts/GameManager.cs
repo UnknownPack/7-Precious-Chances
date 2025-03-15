@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    private const int maxNumOfLives = 7;
     [SerializeField] private int lives = 7;
     private int score;
     private int currentLevel = 1;
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddScore(int value) {
-        score += value;
+        score += GetTreasureValue(value);
         UpdateUI();
     }
 
@@ -93,39 +93,16 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife() {
         lives--;
-        UpdateUI();
-
-        if (lives > 0) {
-            RespawnPlayer();
+        UpdateUI(); 
+        if (lives > 0) 
+            SceneManager.LoadScene("Bridge");
+        else
+        {
+            currentLevel = 1;
+            lives = maxNumOfLives;
+            score = 0;
+            SceneManager.LoadScene("Bridge");
+            UpdateUI(); 
         }
-        else {
-            GameOver();
-        }
-    }
-
-    private void RespawnPlayer() {
-        if (player != null) {
-            player.transform.position = playerStartPosition;
-            ClearFireballs();
-        }
-    }
-
-    private void ClearFireballs() {
-        GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
-        foreach (GameObject fireball in fireballs) {
-            Destroy(fireball);
-        }
-    }
-
-    private void GameOver() {
-        Debug.Log("Game Over!");
-
-        //Need to implement game over logic
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    } 
 }
