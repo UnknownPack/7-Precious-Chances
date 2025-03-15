@@ -8,10 +8,12 @@ public class TreasureManager2D : MonoBehaviour
     public float minDistanceBetweenTreasures = 2f;
     public int maxAttemptsPerTreasure = 50;
     private List<GameObject> spawnedTreasures = new List<GameObject>();
+    public static int treasuresRemaining;
 
     void Start()
     {
         SpawnAllTreasures();
+        treasuresRemaining = spawnedTreasures.Count;
     }
 
     public void SpawnAllTreasures()
@@ -43,6 +45,11 @@ public class TreasureManager2D : MonoBehaviour
                 finalPos = GetRandomPositionInFloor();
             }
             GameObject treasureObj = Instantiate(data.prefab, finalPos, Quaternion.identity);
+            TreasurePickup pickup = treasureObj.GetComponent<TreasurePickup>();
+            if (pickup != null)
+            {
+                pickup.score = data.score;
+            }
             spawnedTreasures.Add(treasureObj);
         }
     }
