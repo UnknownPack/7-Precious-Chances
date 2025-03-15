@@ -3,25 +3,17 @@ using UnityEngine;
 
 public class DragonController : MonoBehaviour
 {
-    public BoxCollider2D floorCollider2D;
     public float moveSpeed;
-    public float edgePadding;
+    public float minX = -4.94f;
+    public float maxX = 5.05f;
     public GameObject fireballPrefab;
     public Transform firePoint;
     public float fireInterval;
     public float fireballSpeed;
-    float minX;
-    float maxX;
     int direction = 1;
 
     void Start()
     {
-        if (floorCollider2D != null)
-        {
-            Bounds b = floorCollider2D.bounds;
-            minX = b.min.x + edgePadding;
-            maxX = b.max.x - edgePadding;
-        }
         StartCoroutine(FireballRoutine());
     }
 
