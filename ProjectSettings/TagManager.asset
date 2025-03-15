@@ -11,6 +11,7 @@ TagManager:
   - SpikeTrap
   - Dragon
   - Cover
+  - DoorSpawnPoint
   layers:
   - Default
   - TransparentFX

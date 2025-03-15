@@ -29,8 +29,34 @@ public class GameManager : MonoBehaviour
             }
             return instance;
         }
+
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "TreasureRoom")
+        {
+            GameObject doorSpawnPoint = GameObject.FindWithTag("DoorSpawnPoint");
+            if (doorSpawnPoint != null && player != null)
+            {
+                player.transform.position = doorSpawnPoint.transform.position;
+                Debug.Log("Player repositioned to door spawn point in TreasureRoom.");
+            }
+            else
+            {
+                Debug.LogWarning("can't find door");
+            }
+        }
+    }
     private void Awake() {
         if (instance != null && instance != this) {
             Destroy(gameObject);
