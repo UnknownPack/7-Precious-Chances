@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private Vector2 playerStartPosition;
     private GameObject player;
     private AudioSource audioSource;
+    [SerializeField] private AudioClip bridgeMusic;
+    [SerializeField] private AudioClip treasureRoomMusic;
 
     private int[] baseTreasureValues = { 10, 60, 200, 400 };
 
@@ -124,8 +126,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            IncreaseLevel();
-        }
+        
     }
 }
