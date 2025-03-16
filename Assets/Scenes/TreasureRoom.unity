@@ -659,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3083708540896385733, guid: 12b56a48bd040f547b5a410316f09b52, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4615896640509385273, guid: 12b56a48bd040f547b5a410316f09b52, type: 3}
       propertyPath: m_BodyType
@@ -1811,6 +1811,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5454342814554468589, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454342814554468589, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5771924232321612405, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
       propertyPath: m_Name
       value: door
@@ -1821,7 +1829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5883318684152601471, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

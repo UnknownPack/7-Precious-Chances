@@ -12,6 +12,7 @@ TagManager:
   - Dragon
   - Cover
   - DoorSpawnPoint
+  - ExitDoor
   layers:
   - Default
   - TransparentFX

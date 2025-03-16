@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -93,7 +94,9 @@ public class PlayerController : MonoBehaviour
                  * when the player is crouching, they are not allowed to move
                  */
                 if(!IsMovingVertically()) {
-                    rb2d.AddForce(new Vector2(currrentMovementVector.x * currentMoveSpeed, 0));
+                    // rb2d.AddForce(new Vector2(currrentMovementVector.x * currentMoveSpeed, 0));
+                    rb2d.linearVelocityX = currrentMovementVector.x * currentMoveSpeed;
+
                 }
                 
                 
@@ -105,7 +108,7 @@ public class PlayerController : MonoBehaviour
                 rb2d.gravityScale = 0; 
                 _jumpAction.Disable();  
                 rb2d.linearDamping = linearDrag; 
-                rb2d.AddForce(currrentMovementVector * currentMoveSpeed * 0.75f);
+                rb2d.linearVelocity = new Vector2(currrentMovementVector.x * currentMoveSpeed * 1f, currrentMovementVector.y * currentMoveSpeed * 1f);
             }
         } 
         
@@ -141,8 +144,8 @@ public class PlayerController : MonoBehaviour
             {
                 _animator.Play("Walk"); 
                 _animator.speed = Mathf.Approximately(currentMoveSpeed, jogSpeed)? 1f : 2.5f;
-                _capsule2d.offset = Vector2.zero;
-                _capsule2d.size = new Vector2(2f, 1f);
+                // _capsule2d.offset = Vector2.zero;
+                // _capsule2d.size = new Vector2(2f, 1f);
                 if (_audioSource.clip != walkingSound || !_audioSource.isPlaying) {
                         _audioSource.clip = walkingSound;
                         _audioSource.loop = true;
@@ -181,6 +184,13 @@ public class PlayerController : MonoBehaviour
             if(currrentMovementVector == Vector2.zero && rb2d.linearVelocity.x > 0 && !_isDead)
                 _animator.Play("Default"); 
         }
+        private void OnTriggerEnter2D(Collider2D other) {
+            if (other.CompareTag("ExitDoor")) {
+                GameManager.Instance.EnterBridgeLevel();
+
+                SceneManager.LoadScene("Bridge");
+            }
+    }
 
         public void PlayerDeathAnimation()
         {
