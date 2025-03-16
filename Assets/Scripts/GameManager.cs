@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     private int[] baseTreasureValues = { 10, 60, 200, 400 };
 
+    public bool IsPlayerBehindDoor { get; private set; }
     public static GameManager Instance {
         get {
             if (instance == null) {
@@ -69,18 +70,8 @@ public class GameManager : MonoBehaviour
     }
 
     void UpdateUI() {
-        if (_score != null) _score.text = "Score: " + score;
-        string livesDisplay = "Lives: ";
-        if (_lives != null)
-        {
-             
-            for (int i = 0; i < lives; i++)
-            {
-                livesDisplay += '*';
-            }
-            _lives.text = livesDisplay;
-            Debug.Log("Lives: " + _lives.text);
-        }
+        if (_score != null) _score.text = "Score: " + score; 
+        if (_lives != null) { _lives.text = "Lives: " + lives; }
     }
 
     public void AddScore(int value) {
@@ -131,5 +122,9 @@ public class GameManager : MonoBehaviour
             UpdateUI(); 
         }
     }
-
+    public void SetPlayerBehindDoor(bool value)
+    {
+        IsPlayerBehindDoor = value;
+    }
 }
+        

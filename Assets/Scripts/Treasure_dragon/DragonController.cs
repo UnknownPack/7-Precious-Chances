@@ -42,9 +42,13 @@ public class DragonController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(fireInterval);
-            Fire();
+            if (!GameManager.Instance.IsPlayerBehindDoor)
+            {
+                Fire();
+            }
         }
     }
+
 
     void Fire()
     {

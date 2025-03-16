@@ -2,7 +2,7 @@
     align-self: center;
     width: 25%;
     height: 7.5%;
-    font-size: 75px;
+    font-size: 60px;
     -unity-font-style: bold;
     color: rgb(255, 169, 75);
     background-color: rgba(0, 0, 0, 0);
