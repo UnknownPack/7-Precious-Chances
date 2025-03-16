@@ -70,18 +70,8 @@ public class GameManager : MonoBehaviour
     }
 
     void UpdateUI() {
-        if (_score != null) _score.text = "Score: " + score;
-        string livesDisplay = "Lives: ";
-        if (_lives != null)
-        {
-             
-            for (int i = 0; i < lives; i++)
-            {
-                livesDisplay += '*';
-            }
-            _lives.text = livesDisplay;
-            Debug.Log("Lives: " + _lives.text);
-        }
+        if (_score != null) _score.text = "Score: " + score; 
+        if (_lives != null) { _lives.text = "Lives: " + lives; }
     }
 
     public void AddScore(int value) {
