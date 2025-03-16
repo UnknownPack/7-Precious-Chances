@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour
     public void EnterBridgeLevel() {
         audioSource.clip = bridgeMusic;
         audioSource.Play();
+        IncreaseLevel();
     }
 
     public int GetCurrentLevel() {
@@ -130,4 +131,5 @@ public class GameManager : MonoBehaviour
             UpdateUI(); 
         }
     }
+
 }

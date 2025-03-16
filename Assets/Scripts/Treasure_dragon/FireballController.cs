@@ -33,6 +33,10 @@ public class FireballController : MonoBehaviour
             Destroy(GetComponent<CircleCollider2D>());
             GameManager.Instance.LoseLife();
         }
+        if (other.CompareTag("Cover"))
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

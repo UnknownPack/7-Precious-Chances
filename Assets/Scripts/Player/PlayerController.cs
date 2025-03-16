@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
             {
                 _animator.Play("Crouch");
                 _capsule2d.offset = new Vector2(-0.2f, -0.15f);
-                _capsule2d.size = new Vector2(1.5f, 1.75f);
+                _capsule2d.size = new Vector2(1.5f, 1f);
                 if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
                     _audioSource.Stop();
                     _audioSource.loop = false;
