@@ -13,9 +13,11 @@ public class DragonController : MonoBehaviour
     public float fireballSpeed;
     int direction = 1;
     private Animator animator;
+    private AudioSource _audioSource;
 
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         StartCoroutine(FireballRoutine());
         animator = gameObject.GetComponent<Animator>();
     }
@@ -46,7 +48,7 @@ public class DragonController : MonoBehaviour
 
     void Fire()
     {
-        animator.SetTrigger("FireBall");
+       
         if (fireballPrefab != null && firePoint != null)
         {
             GameObject f = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
@@ -56,6 +58,8 @@ public class DragonController : MonoBehaviour
                 r.gravityScale = 0;
                 r.linearVelocity = Vector2.up * fireballSpeed;
             }
+            animator.SetTrigger("FireBall");
+            _audioSource.Play();
         }
     }
 

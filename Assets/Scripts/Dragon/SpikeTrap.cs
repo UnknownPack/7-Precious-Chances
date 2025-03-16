@@ -15,9 +15,11 @@ public class SpikeTrap : MonoBehaviour
     private Vector2 startPosition;
     private Vector2 targetPosition;
     private GameObject player;
+    private AudioSource _audioSource;
 
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         startPosition = transform.position;
         targetPosition = new Vector2(startPosition.x, startPosition.y + riseHeight);
         player = GameObject.FindGameObjectWithTag("Player");
@@ -67,6 +69,10 @@ public class SpikeTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            DontDestroyOnLoad(gameObject);
+            _audioSource.Play();
+            Destroy(GetComponent<SpriteRenderer>());
+            Destroy(GetComponent<PolygonCollider2D>());
             GameManager.Instance.LoseLife();
         }
     }

@@ -106,19 +106,6 @@ public class PlayerController : MonoBehaviour
                 _jumpAction.Disable();  
                 rb2d.linearDamping = linearDrag; 
                 rb2d.AddForce(currrentMovementVector * currentMoveSpeed * 0.75f);
-                if (currrentMovementVector.magnitude != 0) {
-                        if (_audioSource.clip != walkingSound || !_audioSource.isPlaying) {
-                            _audioSource.clip = walkingSound;
-                            _audioSource.loop = true;
-                            _audioSource.Play();
-                        }
-                    } 
-                    else {
-                        if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
-                            _audioSource.Stop();
-                            _audioSource.loop = false;
-                        }
-                    }    
             }
         } 
         
@@ -131,9 +118,8 @@ public class PlayerController : MonoBehaviour
 
         private void ManageSprite()
         {
-            if(currrentMovementVector.x != 0 && !IsMovingVertically())
+            if(currentViewState == ViewState.SideScrolling && currrentMovementVector.x != 0 && !IsMovingVertically())
             {
-                Debug.Log(rb2d.linearVelocityY);
                 _animator.Play("Walk"); 
                 _animator.speed = Mathf.Approximately(currentMoveSpeed, jogSpeed)? 1f : 2.5f;
                 _capsule2d.offset = Vector2.zero;
@@ -144,7 +130,26 @@ public class PlayerController : MonoBehaviour
                         _audioSource.Play();
                     }
             }
-            else {
+            else if (currentViewState == ViewState.SideScrolling) {
+                if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
+                    _audioSource.Stop();
+                    _audioSource.loop = false;
+                }
+            }
+
+            if(currentViewState == ViewState.TopDown && currrentMovementVector.magnitude != 0)
+            {
+                _animator.Play("Walk"); 
+                _animator.speed = Mathf.Approximately(currentMoveSpeed, jogSpeed)? 1f : 2.5f;
+                _capsule2d.offset = Vector2.zero;
+                _capsule2d.size = new Vector2(2f, 1f);
+                if (_audioSource.clip != walkingSound || !_audioSource.isPlaying) {
+                        _audioSource.clip = walkingSound;
+                        _audioSource.loop = true;
+                        _audioSource.Play();
+                    }
+            }
+            else if (currentViewState == ViewState.TopDown) {
                 if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
                     _audioSource.Stop();
                     _audioSource.loop = false;
