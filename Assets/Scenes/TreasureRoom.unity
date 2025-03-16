@@ -1719,6 +1719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: door
       objectReference: {fileID: 0}
+    - target: {fileID: 5771924232321612405, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
+      propertyPath: m_TagString
+      value: Cover
+      objectReference: {fileID: 0}
     - target: {fileID: 5883318684152601471, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
       propertyPath: m_SortingOrder
       value: -1
@@ -1831,6 +1835,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3593270119933762502, guid: b0e74ef4f3321104480720412fdfef9c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1478246485}
+    - targetCorrespondingSourceObject: {fileID: 3593270119933762502, guid: b0e74ef4f3321104480720412fdfef9c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1478246484}
   m_SourcePrefab: {fileID: 100100000, guid: b0e74ef4f3321104480720412fdfef9c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
