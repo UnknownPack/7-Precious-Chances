@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
@@ -15,7 +18,7 @@ public class GameManager : MonoBehaviour
     private UIDocument uiDocument;
     private Label _score, _lives;
     private Vector2 playerStartPosition;
-    private GameObject player;
+    private PlayerController player;
     private AudioSource audioSource;
     [SerializeField] private AudioClip bridgeMusic;
     [SerializeField] private AudioClip treasureRoomMusic;
@@ -44,6 +47,14 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        if (player == null)
+        {
+            player = FindObjectOfType<PlayerController>();
+        }
     }
 
     void Start()
@@ -107,7 +118,17 @@ public class GameManager : MonoBehaviour
         return Mathf.RoundToInt(baseValue * multiplier);
     }
 
-    public void LoseLife() {
+    public void LoseLife()
+    {
+        StartCoroutine(EndLife());
+    }
+
+    IEnumerator EndLife()
+    {
+        if (player != null)
+            player.PlayerDeathAnimation();
+
+        yield return new WaitForSeconds(0.6f);
         lives--;
         UpdateUI(); 
         if (lives > 0) 
