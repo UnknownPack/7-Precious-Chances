@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
@@ -12,10 +11,11 @@ public class GameManager : MonoBehaviour
     private int score;
     private int currentLevel = 1;
     private static GameManager instance;
-    private PlayerController player;
+
     private UIDocument uiDocument;
     private Label _score, _lives;
-    private Vector2 playerStartPosition; 
+    private Vector2 playerStartPosition;
+    private GameObject player;
     private AudioSource audioSource;
     [SerializeField] private AudioClip bridgeMusic;
     [SerializeField] private AudioClip treasureRoomMusic;
@@ -67,14 +67,6 @@ public class GameManager : MonoBehaviour
         }
         EnterBridgeLevel();
     }
-    
-    void Update()
-    {
-        if (player == null)
-        {
-            player = FindObjectOfType<PlayerController>();
-        }
-    }
 
     void UpdateUI() {
         if (_score != null) _score.text = "Score: " + score;
@@ -124,16 +116,7 @@ public class GameManager : MonoBehaviour
         return Mathf.RoundToInt(baseValue * multiplier);
     }
 
-    public void LoseLife() { StartCoroutine(deathScene()); }
-
-    IEnumerator deathScene()
-    {
-        /* animation plays here */
-        if (player != null) 
-            player.PlayerDeathAnimation();
-        yield return new WaitForSeconds(0.6f);
-        
-        /* backend logic here */
+    public void LoseLife() {
         lives--;
         UpdateUI(); 
         if (lives > 0) 
@@ -146,6 +129,5 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Bridge");
             UpdateUI(); 
         }
-    } 
-         
+    }
 }
