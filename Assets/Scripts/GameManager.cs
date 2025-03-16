@@ -102,4 +102,56 @@ public class GameManager : MonoBehaviour
             UpdateUI(); 
         }
     } 
+        else {
+            GameOver();
+        }
+    }
+
+    private void RespawnPlayer() {
+        if (player != null) {
+            player.transform.position = playerStartPosition;
+            ClearFireballs();
+        }
+    }
+
+    private void ClearFireballs() {
+        GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
+        foreach (GameObject fireball in fireballs) {
+            Destroy(fireball);
+        }
+    }
+
+    private void GameOver() {
+        Debug.Log("Game Over!");
+
+        //Need to implement game over logic
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "TreasureRoom")
+        {
+            GameObject door = GameObject.FindWithTag("DoorSpawnPoint");
+            if (door != null && player != null)
+            {
+                player.transform.position = door.transform.position;
+            }
+        }
+    }
 }
