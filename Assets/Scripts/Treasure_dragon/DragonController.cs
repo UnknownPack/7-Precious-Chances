@@ -11,10 +11,12 @@ public class DragonController : MonoBehaviour
     public float fireInterval;
     public float fireballSpeed;
     int direction = 1;
+    private Animator animator;
 
     void Start()
     {
         StartCoroutine(FireballRoutine());
+        animator = gameObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -43,6 +45,7 @@ public class DragonController : MonoBehaviour
 
     void Fire()
     {
+        animator.SetTrigger("FireBall");
         if (fireballPrefab != null && firePoint != null)
         {
             GameObject f = Instantiate(fireballPrefab, firePoint.position, Quaternion.identity);
