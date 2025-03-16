@@ -129,33 +129,6 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Bridge");
             UpdateUI(); 
         }
-    }
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            IncreaseLevel();
-        }   
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "TreasureRoom")
-        {
-            GameObject door = GameObject.FindWithTag("DoorSpawnPoint");
-            if (door != null && player != null)
-            {
-                player.transform.position = door.transform.position;
-            }
-        }
-    }
+    } 
+         
 }
