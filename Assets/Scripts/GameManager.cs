@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     private int[] baseTreasureValues = { 10, 60, 200, 400 };
 
+    public bool IsPlayerBehindDoor { get; private set; }
     public static GameManager Instance {
         get {
             if (instance == null) {
@@ -130,4 +131,9 @@ public class GameManager : MonoBehaviour
             UpdateUI(); 
         }
     }
+    public void SetPlayerBehindDoor(bool value)
+    {
+        IsPlayerBehindDoor = value;
+    }
 }
+        
