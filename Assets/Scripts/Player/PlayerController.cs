@@ -94,33 +94,6 @@ public class PlayerController : MonoBehaviour
                  */
                 if(!IsMovingVertically()) {
                     rb2d.AddForce(new Vector2(currrentMovementVector.x * currentMoveSpeed, 0));
-                    if (currrentMovementVector.x != 0) {
-                        if (IsGrounded()) {
-                            if (_audioSource.clip != walkingSound || !_audioSource.isPlaying) {
-                                _audioSource.clip = walkingSound;
-                                _audioSource.loop = true;
-                                _audioSource.Play();
-                            }
-                        }
-                        else {
-                            if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
-                            _audioSource.Stop();
-                            _audioSource.loop = false;
-                        }
-                        }
-                    } 
-                    else {
-                        if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
-                            _audioSource.Stop();
-                            _audioSource.loop = false;
-                        }
-                    }
-                }
-                else {
-                    if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
-                            _audioSource.Stop();
-                            _audioSource.loop = false;
-                        }
                 }
                 
                 
@@ -150,7 +123,7 @@ public class PlayerController : MonoBehaviour
         } 
         
         private bool IsGrounded() {return Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, ~LayerMask.GetMask("Player", "Ignore Raycast")); }
-        private bool IsMovingVertically() {return Mathf.Abs(rb2d.linearVelocityY) > 0.1f;}
+        private bool IsMovingVertically() {return Mathf.Abs(rb2d.linearVelocityY) > 0.01f;}
         
         #endregion
 
@@ -158,17 +131,18 @@ public class PlayerController : MonoBehaviour
 
         private void ManageSprite()
         {
-            if(currrentMovementVector.x != 0 && IsGrounded())
+            if(currrentMovementVector.x != 0 && !IsMovingVertically())
             {
+                Debug.Log(rb2d.linearVelocityY);
                 _animator.Play("Walk"); 
                 _animator.speed = Mathf.Approximately(currentMoveSpeed, jogSpeed)? 1f : 2.5f;
                 _capsule2d.offset = Vector2.zero;
                 _capsule2d.size = new Vector2(2f, 1f);
-                if (_audioSource.clip != walkingSound && !_audioSource.isPlaying) {
-                    _audioSource.clip = walkingSound;
-                    _audioSource.loop = true;
-                    _audioSource.Play();
-                }
+                if (_audioSource.clip != walkingSound || !_audioSource.isPlaying) {
+                        _audioSource.clip = walkingSound;
+                        _audioSource.loop = true;
+                        _audioSource.Play();
+                    }
             }
             else {
                 if (_audioSource.isPlaying && _audioSource.clip == walkingSound) {
