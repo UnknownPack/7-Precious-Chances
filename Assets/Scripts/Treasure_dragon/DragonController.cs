@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement; // 如果需要判断场景名
 
 public class DragonController : MonoBehaviour
 {
@@ -55,6 +56,21 @@ public class DragonController : MonoBehaviour
                 r.gravityScale = 0;
                 r.linearVelocity = Vector2.up * fireballSpeed;
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.LoseLife();
+
+            // Scene currentScene = SceneManager.GetActiveScene();
+            // if (currentScene.name == "TreasureRoom")
+            // {
+            //     GameManager.Instance.TeleportPlayerToDoor();
+            // }
+      
         }
     }
 }
