@@ -7,9 +7,11 @@ public class FireballController : MonoBehaviour
     public float lifeTime = 3f;
 
     private Rigidbody2D rb;
+    private AudioSource _audioSource;
 
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
 
         if (rb != null)
@@ -25,8 +27,11 @@ public class FireballController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            DontDestroyOnLoad(gameObject);
+            _audioSource.Play();
+            Destroy(GetComponent<SpriteRenderer>());
+            Destroy(GetComponent<CircleCollider2D>());
             GameManager.Instance.LoseLife();
-            Destroy(gameObject);
         }
     }
 
