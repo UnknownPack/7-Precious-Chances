@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
     private float currentMoveSpeed = 0f, startingDrag;
+    private bool _isDead = false;
     private Vector2 currrentMovementVector;
         
     void Start()
@@ -118,7 +119,7 @@ public class PlayerController : MonoBehaviour
                 _capsule2d.offset = new Vector2(-0.2f, -0.15f);
                 _capsule2d.size = new Vector2(1.5f, 1.75f);
             }
-            else if(currrentMovementVector.y == 0 && currrentMovementVector.x == 0)
+            else if(currrentMovementVector.y == 0 && currrentMovementVector.x == 0 &&!_isDead)
             {
                 _animator.Play("Default"); 
                 _capsule2d.offset = Vector2.zero;
@@ -130,8 +131,14 @@ public class PlayerController : MonoBehaviour
             
              
             
-            if(currrentMovementVector == Vector2.zero && rb2d.linearVelocity.x > 0)
+            if(currrentMovementVector == Vector2.zero && rb2d.linearVelocity.x > 0 && !_isDead)
                 _animator.Play("Default"); 
+        }
+
+        public void PlayerDeathAnimation()
+        {
+            _isDead = true;
+            _animator.Play("Death");
         }
 
         #endregion
