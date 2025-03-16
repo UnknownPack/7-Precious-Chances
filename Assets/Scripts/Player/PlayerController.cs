@@ -19,22 +19,6 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private float currentMoveSpeed = 0f, startingDrag;
     private Vector2 currrentMovementVector;
-    
-
-    private static PlayerController instance;
-
-    private void Awake() 
-    {
-        if (instance == null)
-         {
-         instance = this;
-         DontDestroyOnLoad(gameObject);
-         }
-          else
-            {
-                Destroy(gameObject);
-            }
-        }
         
     void Start()
     {
@@ -51,11 +35,6 @@ public class PlayerController : MonoBehaviour
     {
         ManageMovement();
         ManageSprite();
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        
     }
     
     #region Action Defintions

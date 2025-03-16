@@ -18,12 +18,9 @@ public class TrapSpawner : MonoBehaviour
     }
 
     void SpawnTraps()
-    {
-        int level = GameManager.Instance.GetCurrentLevel();
-        int trapsToSpawn = Mathf.Min(trapsPerLevel * level, maxTraps);
-
+    { 
+        int trapsToSpawn = Mathf.Min(trapsPerLevel * GameManager.Instance.GetCurrentLevel(), maxTraps);
         spawnedTrapPositions.Clear();
-
         for (int i = 0; i < trapsToSpawn; i++)
         {
             Vector2 spawnPosition = GetValidSpawnPosition();

@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
-
+    private const int maxNumOfLives = 7;
     [SerializeField] private int lives = 7;
     private int score;
     private int currentLevel = 1;
@@ -17,6 +19,9 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip bridgeMusic;
     [SerializeField] private AudioClip treasureRoomMusic;
+    [SerializeField] private VolumeProfile volumeProfile;
+    private ChromaticAberration chromaticAberration;
+    private ColorAdjustments colorAdjustments;
 
     private int[] baseTreasureValues = { 10, 60, 200, 400 };
 
@@ -40,46 +45,66 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         uiDocument = GetComponent<UIDocument>();
-        score = 0;
-
+        score = 0;  
+        lives = maxNumOfLives; 
+        currentLevel = 1;
         _score = uiDocument.rootVisualElement.Q<Label>("_score");
         _lives = uiDocument.rootVisualElement.Q<Label>("_lives");
-
-        player = GameObject.FindWithTag("Player");
-        
-        if (player != null) {
-            DontDestroyOnLoad(player);
-            playerStartPosition = player.transform.position;
-
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "TreasureRoom") {
-                player.transform.position = new Vector2(13.5f, -7.5f);
-            }
-        }
-        else {
-            Debug.LogError("Player not found in the scene");
-        }
-
         UpdateUI();
         audioSource = gameObject.GetComponent<AudioSource>();
+        if (volumeProfile.TryGet(out chromaticAberration)) {
+            chromaticAberration.intensity.overrideState = true;
+            chromaticAberration.intensity.value = 0;
+            
+        }
+        if (volumeProfile.TryGet(out colorAdjustments)) {
+            colorAdjustments.hueShift.overrideState = true;
+            colorAdjustments.hueShift.value = 0;
+            
+        }
+        EnterBridgeLevel();
     }
 
     void UpdateUI() {
         if (_score != null) _score.text = "Score: " + score;
-        if (_lives != null) _lives.text = "Lives: " + lives;
+        string livesDisplay = "Lives: ";
+        if (_lives != null)
+        {
+             
+            for (int i = 0; i < lives; i++)
+            {
+                livesDisplay += '*';
+            }
+            _lives.text = livesDisplay;
+            Debug.Log("Lives: " + _lives.text);
+        }
     }
 
     public void AddScore(int value) {
-        score += value;
+        score += GetTreasureValue(value);
         UpdateUI();
     }
 
     public void IncreaseLevel() {
-        audioSource.pitch = 1 + 0.1f * (currentLevel);
+        audioSource.pitch = 1 + (0.1f * currentLevel);
+        Time.timeScale = 1 + (0.1f * currentLevel);
+        //TODO: Add logic to change colour of the level(s)
+        chromaticAberration.intensity.value = 0.1f * currentLevel;
+        colorAdjustments.hueShift.value = 10 * currentLevel;
         currentLevel++;
+    }
+
+    public void EnterTreasureRoom() {
+        audioSource.clip = treasureRoomMusic;
+        audioSource.Play();
+    }
+
+    public void EnterBridgeLevel() {
+        audioSource.clip = bridgeMusic;
+        audioSource.Play();
     }
 
     public int GetCurrentLevel() {
@@ -93,40 +118,23 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife() {
         lives--;
-        UpdateUI();
-
-        if (lives > 0) {
-            RespawnPlayer();
-        }
-        else {
-            GameOver();
-        }
-    }
-
-    private void RespawnPlayer() {
-        if (player != null) {
-            player.transform.position = playerStartPosition;
-            ClearFireballs();
+        UpdateUI(); 
+        if (lives > 0) 
+            SceneManager.LoadScene("Bridge");
+        else
+        {
+            currentLevel = 1;
+            lives = maxNumOfLives;
+            score = 0;
+            SceneManager.LoadScene("Bridge");
+            UpdateUI(); 
         }
     }
-
-    private void ClearFireballs() {
-        GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
-        foreach (GameObject fireball in fireballs) {
-            Destroy(fireball);
-        }
-    }
-
-    private void GameOver() {
-        Debug.Log("Game Over!");
-
-        //Need to implement game over logic
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.E)) {
+            IncreaseLevel();
+        }   
     }
 
     private void OnEnable()
