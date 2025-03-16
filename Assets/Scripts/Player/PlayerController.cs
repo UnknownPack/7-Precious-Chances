@@ -13,18 +13,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float linearDrag = 6.5f;
     
     private Rigidbody2D rb2d;
-    private CapsuleCollider2D capsule2d;
+    private CapsuleCollider2D _capsule2d;
     private PlayerInput _playerInput;
     private InputAction _moveAction, _jumpAction, _sprintAction;
-    private SpriteRenderer spriteRenderer;
+    private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
     private float currentMoveSpeed = 0f, startingDrag;
     private Vector2 currrentMovementVector;
         
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        capsule2d = GetComponent<CapsuleCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        _capsule2d = GetComponent<CapsuleCollider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>(); 
+        _animator = GetComponent<Animator>();
         currentMoveSpeed = jogSpeed;
         InitalizeActions();
         startingDrag = rb2d.linearDamping;
@@ -54,7 +56,15 @@ public class PlayerController : MonoBehaviour
         _sprintAction.canceled += ctx => currentMoveSpeed = jogSpeed; 
     }
     private void SprintAction(InputAction.CallbackContext context) { currentMoveSpeed = runSpeed; }
-    private void JumpAction(InputAction.CallbackContext context) { if(IsGrounded())rb2d.AddForce(transform.up * jumpForce, ForceMode2D.Impulse); } 
+
+    private void JumpAction(InputAction.CallbackContext context)
+    {
+        if(IsGrounded())
+        {
+            rb2d.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            _animator.Play("Jump");
+        }
+    } 
     #endregion
     
     #region Helper Functions
@@ -94,15 +104,34 @@ public class PlayerController : MonoBehaviour
 
         private void ManageSprite()
         {
-            /*PLACE HOLDER*/
-            /* TODO: Implement proper logic/ aniamtion change for when the player is crocuhing */
-            if(currentViewState == ViewState.SideScrolling)
+            if(currrentMovementVector.x != 0)
             {
-                if (currrentMovementVector.y < 0)
-                    transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                else
-                    transform.localScale = Vector3.one;
+                _animator.Play("Walk"); 
+                _animator.speed = Mathf.Approximately(currentMoveSpeed, jogSpeed)? 1f : 2.5f;
+                _capsule2d.offset = Vector2.zero;
+                _capsule2d.size = new Vector2(2f, 1f);
             }
+            
+            if(currentViewState == ViewState.SideScrolling && currrentMovementVector.y < 0)
+            {
+                _animator.Play("Crouch");
+                _capsule2d.offset = new Vector2(-0.2f, -0.15f);
+                _capsule2d.size = new Vector2(1.5f, 1.75f);
+            }
+            else if(currrentMovementVector.y == 0 && currrentMovementVector.x == 0)
+            {
+                _animator.Play("Default"); 
+                _capsule2d.offset = Vector2.zero;
+                _capsule2d.size = new Vector2(2f, 1f);
+            }
+            
+            float oritentation = currrentMovementVector.x > 0 ? 0f : -180f;
+            transform.rotation = Quaternion.Euler(0f, oritentation, 0f);
+            
+             
+            
+            if(currrentMovementVector == Vector2.zero && rb2d.linearVelocity.x > 0)
+                _animator.Play("Default"); 
         }
 
         #endregion
