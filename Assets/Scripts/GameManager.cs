@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip bridgeMusic;
     [SerializeField] private AudioClip treasureRoomMusic;
+    [SerializeField] private VolumeProfile volumeProfile;
+    private ChromaticAberration chromaticAberration;
+    private ColorAdjustments colorAdjustments;
 
     private int[] baseTreasureValues = { 10, 60, 200, 400 };
 
@@ -50,6 +55,17 @@ public class GameManager : MonoBehaviour
         _lives = uiDocument.rootVisualElement.Q<Label>("_lives");
         UpdateUI();
         audioSource = gameObject.GetComponent<AudioSource>();
+        if (volumeProfile.TryGet(out chromaticAberration)) {
+            chromaticAberration.intensity.overrideState = true;
+            chromaticAberration.intensity.value = 0;
+            
+        }
+        if (volumeProfile.TryGet(out colorAdjustments)) {
+            colorAdjustments.hueShift.overrideState = true;
+            colorAdjustments.hueShift.value = 0;
+            
+        }
+        EnterBridgeLevel();
     }
 
     void UpdateUI() {
@@ -76,7 +92,19 @@ public class GameManager : MonoBehaviour
         audioSource.pitch = 1 + (0.1f * currentLevel);
         Time.timeScale = 1 + (0.1f * currentLevel);
         //TODO: Add logic to change colour of the level(s)
+        chromaticAberration.intensity.value = 0.1f * currentLevel;
+        colorAdjustments.hueShift.value = 10 * currentLevel;
         currentLevel++;
+    }
+
+    public void EnterTreasureRoom() {
+        audioSource.clip = treasureRoomMusic;
+        audioSource.Play();
+    }
+
+    public void EnterBridgeLevel() {
+        audioSource.clip = bridgeMusic;
+        audioSource.Play();
     }
 
     public int GetCurrentLevel() {
@@ -101,5 +129,11 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Bridge");
             UpdateUI(); 
         }
-    } 
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E)) {
+            IncreaseLevel();
+        }   
+    }
 }
