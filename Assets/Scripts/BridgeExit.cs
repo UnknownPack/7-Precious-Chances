@@ -20,6 +20,12 @@ public class BridgeExit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
+            if (nextSceneName == "TreasureRoom") {
+                GameManager.Instance.EnterTreasureRoom();
+            }
+            else {
+                GameManager.Instance.EnterBridgeLevel();
+            }
             SceneManager.LoadScene(nextSceneName);
         }
     }

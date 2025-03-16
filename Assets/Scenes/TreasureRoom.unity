@@ -1815,6 +1815,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: door
       objectReference: {fileID: 0}
+    - target: {fileID: 5771924232321612405, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
+      propertyPath: m_TagString
+      value: Cover
+      objectReference: {fileID: 0}
     - target: {fileID: 5883318684152601471, guid: e8332cf27d3f26f7b92070380be9b917, type: 3}
       propertyPath: m_SortingOrder
       value: 1
