@@ -4,10 +4,11 @@ public class Fireball : MonoBehaviour
 {
 
     public float speed = 5f;
+    private AudioSource _audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,8 +24,11 @@ public class Fireball : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) { 
         if (other.CompareTag("Player")) {
+            DontDestroyOnLoad(gameObject);
             GameManager.Instance.LoseLife();
-            Destroy(gameObject);
+            _audioSource.Play();
+            Destroy(GetComponent<SpriteRenderer>());
+            Destroy(GetComponent<CircleCollider2D>());
             Debug.Log("Fireball hit player");
         }
 
