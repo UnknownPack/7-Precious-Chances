@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ViewState currentViewState = ViewState.SideScrolling;
     
     [SerializeField] private float linearDrag = 6.5f;
+    [SerializeField] private AudioClip walkingSound;
+    [SerializeField] private AudioClip jumpingSound;
+    private AudioSource _audioSource;
     
     private Rigidbody2D rb2d;
     private CapsuleCollider2D _capsule2d;
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
         _capsule2d = GetComponent<CapsuleCollider2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>(); 
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
         currentMoveSpeed = jogSpeed;
         InitalizeActions();
         startingDrag = rb2d.linearDamping;
@@ -64,6 +68,11 @@ public class PlayerController : MonoBehaviour
         {
             rb2d.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
             _animator.Play("Jump");
+            _audioSource.clip = jumpingSound;
+            _audioSource.loop = false;
+            _audioSource.Play();
+            Debug.Log("Jumping sound: " + jumpingSound);
+
         }
     } 
     #endregion
@@ -85,19 +94,37 @@ public class PlayerController : MonoBehaviour
                  * if currrentMovementVector is less then 0, then that means the player is inputing down or crouch
                  * when the player is crouching, they are not allowed to move
                  */
-                if(currrentMovementVector.y >= 0)
+                if(currrentMovementVector.y >= 0) {
                     rb2d.AddForce(new Vector2(currrentMovementVector.x * currentMoveSpeed, 0));
+                    if (currrentMovementVector.x != 0) {
+                    if (IsGrounded()) {
+                        if (_audioSource.clip != walkingSound || !_audioSource.isPlaying) {
+                            _audioSource.clip = walkingSound;
+                            _audioSource.loop = true;
+                            _audioSource.Play();
+                        }
+                    }
+                    } else {
+                        if (_audioSource.isPlaying && _audioSource == walkingSound) {
+                            _audioSource.Stop();
+                            _audioSource.loop = false;
+                        }
+                    }
+                }
+                
+
+                    
             }
             else
             { 
                 rb2d.gravityScale = 0; 
                 _jumpAction.Disable();  
                 rb2d.linearDamping = linearDrag; 
-                rb2d.AddForce(currrentMovementVector * currentMoveSpeed * 0.75f); 
+                rb2d.AddForce(currrentMovementVector * currentMoveSpeed * 0.75f);     
             }
         } 
         
-        private bool IsGrounded() {return Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, ~LayerMask.GetMask("Player")); }
+        private bool IsGrounded() {return Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, ~LayerMask.GetMask("Player", "Ignore Raycast")); }
         
         #endregion
 
